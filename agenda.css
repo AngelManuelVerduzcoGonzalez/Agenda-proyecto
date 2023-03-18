@@ -1,0 +1,94 @@
+*{
+    font-family: 'Open Sans';
+}
+html {
+    width: 100%;
+    height: 100%;
+    background-color: #DCDCDC;
+}
+h2 {
+    text-align: center;
+    margin: 0%;
+    width: 100%;
+    padding: 0;
+    background-color: cadetblue;
+}
+#main {
+    display: flex;
+}
+#panel {
+    margin-left: 0%;
+    height: 100%;
+    width: 250px
+}
+#listado {
+width: 100%;
+}
+table, th, td {
+    border: 2px solid;
+}
+table {
+    width: 100%;
+    background-color: #ffff;
+    border-collapse: collapse;
+}
+td {
+    text-align: center;
+}
+#buttons button{
+    margin-top: 12px;
+    width: 80px;
+    margin-bottom: 20px;
+    margin-right: 5px;
+    display: inline-block;
+    border-radius: 5px;
+    border-style: solid;
+    background-color: #ffff;
+    cursor: pointer;
+    height: 23px;
+}
+#buscar {
+    margin-bottom: 20px;
+    margin-right: 5px;
+    border-radius: 5px;
+    border-style: solid;
+    background-color: #ffff;
+    cursor: pointer;
+}
+input {
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: black;
+}
+#buscar-tabla {
+    width: 100%;
+    margin-top: 30px;
+    margin-left: 25px;
+}
+#buscar {
+    width: 120px;
+    margin-right: 20px;
+}
+.insert-section {
+    display: block;
+}
+select {
+    border-radius: 5px;
+    border-style: solid;
+    border: 2px solid;
+}
+#editarbarra button {
+    margin-bottom: 20px;
+    margin-right: 5px;
+    border-radius: 5px;
+    border-style: solid;
+    background-color: #ffff;
+    cursor: pointer;
+}
+  
+  
+  
+  
+  
+  

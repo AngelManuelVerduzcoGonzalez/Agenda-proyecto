@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda Pobresoft</title>
+    <style>
+        *{
+    font-family: 'Open Sans';
+}
+html {
+    width: 100%;
+    height: 100%;
+    background-color: #DCDCDC;
+}
+h2 {
+    text-align: center;
+    margin: 0%;
+    width: 100%;
+    padding: 0;
+    background-color: cadetblue;
+}
+#main {
+    display: flex;
+}
+#panel {
+    margin-left: 0%;
+    height: 100%;
+}
+#listado {
+width: 100%;
+}
+table, th, td {
+    border: 2px solid;
+}
+table {
+    width: 100%;
+    background-color: #ffff;
+    border-collapse: collapse;
+}
+td {
+    text-align: center;
+}
+#buttons button{
+    margin-top: 12px;
+    width: 40%;
+    margin-bottom: 20px;
+    margin-right: 5px;
+    display: inline-block;
+    border-radius: 5px;
+    border-style: solid;
+    background-color: #ffff;
+    cursor: pointer;
+}
+#buscar {
+    margin-bottom: 20px;
+    margin-right: 5px;
+    border-radius: 5px;
+    border-style: solid;
+    background-color: #ffff;
+    cursor: pointer;
+}
+input {
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: black;
+}
+#buscar-tabla {
+    width: 100%;
+    margin-top: 30px;
+    margin-left: 25px;
+}
+#buscar {
+    width: 120px;
+    margin-right: 20px;
+}
+.insert-section {
+    display: block;
+}
+select {
+    border-radius: 5px;
+    border-style: solid;
+    border: 2px solid;
+}
+#editarbarra button {
+    margin-bottom: 20px;
+    margin-right: 5px;
+    border-radius: 5px;
+    border-style: solid;
+    background-color: #ffff;
+    cursor: pointer;
+}
+    </style>
+</head>
+<body>
+    <h2>Agenda Pobresoft</h2> 
+    <div id="main">
+        <div id="panel">
+            <h4 id="titulo2"></h4>  
+            <label class="insert-section">Nombre</label>
+            <input class="insert-section" type="text" id="nombre">
+            <label class="insert-section">Dirección</label>
+            <input class="insert-section" type="text" id="direccion">
+            <label class="insert-section">Teléfono</label> 
+            <input class="insert-section" type="number" id="telefono">  
+            <br>
+            <div id="buttons">
+                <div id="barraguardar"style="display: none;">
+                    <button id="guardarnuevo" onclick="guardar()" >Guardar</button>
+                    <button id="cancelarguardar" onclick="cancelarguardarocultar()">Cancelar</button>
+                </div>
+                <div id="barraacciones">
+                <button onclick="nuevoregistro()" id="nuevo">Nuevo</button>
+                <button id="editar" onclick="editarregistro()">Editar</button>
+                <button id="eliminar" onclick="borrar()">Eliminar</button>
+                
+                </div>
+                <div id="navegacion">
+                    <button onclick="primero()">Primero</button>
+                    <button onclick="siguiente()">Siguiente</button>
+                    <button onclick="anterior()">Anterior</button>
+                    <button onclick="ultimo()">Último</button>
+                </div>
+            </div>    
+            <div id="editarbarra" style="display: none;">
+                <button onclick="guardareditar()">Guardar</button>
+                <button onclick="cancelareditar()">Cancelar</button>
+            </div>
+        </div>    
+        <div id="buscar-tabla">
+            <div id="barrabuscar">
+                <label for="">Buscar en</label>
+                <input size="70px" type="text" id="texto">
+                <select name="campos" id="campo">
+                    <option value="nombre">Nombre</option>
+                    <option value="direccion">Dirección</option>
+                    <option value="telefono">Telefono</option>
+                </select>
+                <button id="buscar" onclick="buscarRegistro()">Buscar</button>
+            </div>    
+            <div id="listado"></div>
+        </div>
+    </div>
+    <script>
+let datos=[]    
+let registroactual=0
+let totalderegistros=0
+let titulo2=document.getElementById("titulo2")
+let nombre=document.getElementById("nombre") 
+let direccion=document.getElementById("direccion")
+let telefono=document.getElementById("telefono")
+let nuevo=document.getElementById("nuevo")
+let editar=document.getElementById("editar")
+let eliminar=document.getElementById("eliminar")
+let buscar=document.getElementById("buscar")
+let navegacion=document.getElementById("navegacion")
+let guardarnuevo=document.getElementById("guardarnuevo")
+let listado=document.getElementById("listado")
+let editarbarra=document.getElementById("editarbarra")
+let barraacciones=document.getElementById("barraacciones")
+let barrabuscar=document.getElementById("barrabuscar")
+
+function buscarRegistro() {
+let valorBuscado = document.getElementById("texto").value.toLowerCase();
+let campoBuscado = document.getElementById("campo").value;
+var encontrado = false;
+for (var i = 0; i < datos.length; i++) {
+if (datos[i][campoBuscado].toLowerCase().includes(valorBuscado)) {
+var datosNombre = datos[i].nombre;
+var datosTelefono = datos[i].telefono;
+var datosDireccion = datos[i].direccion;
+encontrado = true;
+var posicion = i;
+registroactual=i
+break;
+}
+}
+if (encontrado==true) {
+alert("Registro encontrado")
+mostrarListado()
+barra2()
+mostrarregistro()
+} else {
+alert("No se encontraron coincidencias para ese registro")
+}
+}
+
+function guardareditar() {
+    datos[registroactual].nombre=nombre.value
+    datos[registroactual].direccion=direccion.value
+    datos[registroactual].telefono=telefono.value
+    sololectura()
+    navegacion.style.display='inline'
+    editarbarra.style.display='none'
+    barraacciones.style.display='inline'
+    barrabuscar.style.display='inline'
+    mostrarListado()
+}
+
+function cancelareditar() {
+    navegacion.style.display ='inline'
+    editarbarra.style.display='none'
+    barraacciones.style.display='inline'
+    barrabuscar.style.display='inline'
+    sololectura()
+}
+
+function editarregistro() {
+    if(totalderegistros>0){
+    navegacion.style.display ='none'
+    editarbarra.style.display='inline'
+    barraacciones.style.display='none'
+    barrabuscar.style.display='none'
+    soloescritura()
+    }
+    else {
+        alert("No hay resgitros que puedan ser editados")
+    }
+}
+
+function sololectura()
+{
+    nombre.readOnly = true
+    direccion.readOnly=true
+    telefono.readOnly=true
+}
+
+function borrar()
+{
+    if (totalderegistros>0) {
+        console.log(totalderegistros)
+        datos.splice(registroactual,1)
+        totalderegistros=datos.length
+        if(registroactual == totalderegistros){
+            registroactual--
+            if (registroactual<0) {
+                nombre.value=""
+                direccion.value=""
+                telefono.value=""
+                mostrarListado()
+                barra2()
+                return
+            }
+            barra2()
+            mostrarregistro()
+            mostrarListado()
+        }
+    } else {
+        alert("No hay ningun registro que pueda ser borrado")
+        console.log(totalderegistros)
+        mostrarListado()
+        barra2()    
+    }
+}
+
+function primero()
+{
+    if (totalderegistros >1)
+    {
+    registroactual=0
+    }
+    mostrarListado()
+    mostrarregistro()
+    barra2()
+}
+
+function ultimo()
+{
+    if (registroactual<(datos.length-1)) {
+    console.log(datos.length)
+    registroactual=(datos.length-1)
+    }
+    mostrarListado()
+    mostrarregistro()
+    barra2()
+}
+
+function siguiente()
+{
+if(registroactual<(totalderegistros-1))
+{
+registroactual++
+barra2()
+mostrarregistro()
+}
+}
+
+function anterior()
+{
+    if(registroactual>0)
+    {
+     registroactual--
+     barra2()
+     mostrarregistro()   
+    }
+}
+
+function soloescritura()
+{
+    nombre.readOnly = false
+    direccion.readOnly=false
+    telefono.readOnly=false
+}
+function mostrarListado()
+{
+    if(totalderegistros>0){
+ let tabla = "<table><tr><th>Nombre</th><th>Dirección</th><th>Teléfono</th></tr>";
+    for(x of datos)
+    {
+        tabla+="<tr><td>"+x.nombre+"</td><td>"+ x.direccion+"</td><td>"+x.telefono+"</td></tr>"
+    }
+    tabla+="</table>"
+    listado.innerHTML=tabla
+}
+else{
+    listado.innerHTML=""
+}
+}
+function ocultarnuevo()
+{
+ nuevo.style.display="none";  
+ editar.style.display='none';
+ eliminar.style.display='none';
+ buscar.style.display='none';
+ navegacion.style.display='none';
+ barraguardar.style.display='block';
+ 
+
+}
+
+function cancelarguardarocultar()
+{
+ nuevo.style.display="inline";  
+ editar.style.display='inline';
+ eliminar.style.display='inline';
+ buscar.style.display='inline';
+ navegacion.style.display='inline';
+ barraguardar.style.display='none';
+ cancelarguardar.style.display="inline";
+ barrabuscar.style.display='inline'
+ mostrarregistro()
+ sololectura()
+}
+
+function nuevoregistro()
+{
+    ocultarnuevo()
+    nombre.value=""
+    direccion.value=""
+    telefono.value=""
+    barrabuscar.style.display='none'
+    soloescritura()  
+}
+
+function mostrarregistro()
+{
+    nombre.value=datos[registroactual].nombre
+    direccion.value=datos[registroactual].direccion
+    telefono.value=datos[registroactual].telefono
+    mostrarListado();
+}
+
+function guardar()
+{
+if(!!nombre.value && !!direccion.value && telefono.value)
+{
+persona={nombre:nombre.value,
+        direccion:direccion.value,
+        telefono:telefono.value}
+datos.push(persona)  
+   
+nombre.value=""
+direccion.value=""
+telefono.value=""
+registroactual=datos.length-1
+totalderegistros=datos.length
+barra2()    
+mostrarregistro()
+cancelarguardarocultar()
+alert("Registro guardado con exito")
+}
+else {
+    alert("No capturaste los datos")
+}
+}
+
+function barra2()
+ {
+    if(totalderegistros>0)
+    titulo2.innerHTML="Registro "+(registroactual+1)+" de "+totalderegistros;
+    else
+    titulo2.innerHTML="No hay registros para mostrar!!"
+     
+}   
+
+ barra2()
+ mostrarListado()
+ sololectura()
+
+
+    </script>
+</body>
+</html>
