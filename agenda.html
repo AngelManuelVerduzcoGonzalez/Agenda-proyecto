@@ -5,94 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda Pobresoft</title>
-    <style>
-        *{
-    font-family: 'Open Sans';
-}
-html {
-    width: 100%;
-    height: 100%;
-    background-color: #DCDCDC;
-}
-h2 {
-    text-align: center;
-    margin: 0%;
-    width: 100%;
-    padding: 0;
-    background-color: cadetblue;
-}
-#main {
-    display: flex;
-}
-#panel {
-    margin-left: 0%;
-    height: 100%;
-}
-#listado {
-width: 100%;
-}
-table, th, td {
-    border: 2px solid;
-}
-table {
-    width: 100%;
-    background-color: #ffff;
-    border-collapse: collapse;
-}
-td {
-    text-align: center;
-}
-#buttons button{
-    margin-top: 12px;
-    width: 40%;
-    margin-bottom: 20px;
-    margin-right: 5px;
-    display: inline-block;
-    border-radius: 5px;
-    border-style: solid;
-    background-color: #ffff;
-    cursor: pointer;
-}
-#buscar {
-    margin-bottom: 20px;
-    margin-right: 5px;
-    border-radius: 5px;
-    border-style: solid;
-    background-color: #ffff;
-    cursor: pointer;
-}
-input {
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border-style: solid;
-    border-color: black;
-}
-#buscar-tabla {
-    width: 100%;
-    margin-top: 30px;
-    margin-left: 25px;
-}
-#buscar {
-    width: 120px;
-    margin-right: 20px;
-}
-.insert-section {
-    display: block;
-}
-select {
-    border-radius: 5px;
-    border-style: solid;
-    border: 2px solid;
-}
-#editarbarra button {
-    margin-bottom: 20px;
-    margin-right: 5px;
-    border-radius: 5px;
-    border-style: solid;
-    background-color: #ffff;
-    cursor: pointer;
-}
-    </style>
+    <link rel="stylesheet" href="agenda.css">
 </head>
 <body>
     <h2>Agenda Pobresoft</h2> 
@@ -162,29 +75,46 @@ let editarbarra=document.getElementById("editarbarra")
 let barraacciones=document.getElementById("barraacciones")
 let barrabuscar=document.getElementById("barrabuscar")
 
+// function guardarDatos() {
+//     let datosCadena =JSON.stringify(datos)
+//     localStorage.setItem("misdatos", datosCadena)
+// }
+
+// function recuperarDatos () {
+//     if(!!localStorage.getItem("misdatos"))
+//     datos=JSON.parse(localStorage.getItem("misdatos"))
+//     totalderegistros=datos.length
+//     registroactual=0
+//     mostrarregistro()
+//     mostrarListado()
+//     barra2()
+//     sololectura()
+
+// }
+
 function buscarRegistro() {
-let valorBuscado = document.getElementById("texto").value.toLowerCase();
-let campoBuscado = document.getElementById("campo").value;
-var encontrado = false;
-for (var i = 0; i < datos.length; i++) {
-if (datos[i][campoBuscado].toLowerCase().includes(valorBuscado)) {
-var datosNombre = datos[i].nombre;
-var datosTelefono = datos[i].telefono;
-var datosDireccion = datos[i].direccion;
-encontrado = true;
-var posicion = i;
-registroactual=i
-break;
-}
-}
-if (encontrado==true) {
-alert("Registro encontrado")
-mostrarListado()
-barra2()
-mostrarregistro()
-} else {
-alert("No se encontraron coincidencias para ese registro")
-}
+    let valorBuscado = document.getElementById("texto").value.toLowerCase();
+    let campoBuscado = document.getElementById("campo").value;
+    var encontrado = false;
+    for (var i = 0; i < datos.length; i++) {
+        if (datos[i][campoBuscado].toLowerCase().includes(valorBuscado)) {
+            var datosNombre = datos[i].nombre;
+            var datosTelefono = datos[i].telefono;
+            var datosDireccion = datos[i].direccion;
+            encontrado = true;
+            var posicion = i;
+            registroactual=i
+            break;
+        }
+    }
+    if (encontrado==true) {
+        alert("Registro encontrado")
+        mostrarListado()
+        barra2()
+        mostrarregistro()
+    } else {
+        alert("No se encontraron coincidencias para ese registro")
+    }
 }
 
 function guardareditar() {
@@ -197,6 +127,7 @@ function guardareditar() {
     barraacciones.style.display='inline'
     barrabuscar.style.display='inline'
     mostrarListado()
+    // guardarDatos()
 }
 
 function cancelareditar() {
@@ -251,8 +182,9 @@ function borrar()
         alert("No hay ningun registro que pueda ser borrado")
         console.log(totalderegistros)
         mostrarListado()
-        barra2()    
+        barra2()
     }
+    // guardarDatos()
 }
 
 function primero()
@@ -379,6 +311,7 @@ totalderegistros=datos.length
 barra2()    
 mostrarregistro()
 cancelarguardarocultar()
+// guardarDatos()
 alert("Registro guardado con exito")
 }
 else {
@@ -395,6 +328,7 @@ function barra2()
      
 }   
 
+// recuperarDatos()
  barra2()
  mostrarListado()
  sololectura()

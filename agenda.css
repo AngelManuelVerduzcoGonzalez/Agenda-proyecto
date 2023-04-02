@@ -37,7 +37,7 @@ td {
 }
 #buttons button{
     margin-top: 12px;
-    width: 80px;
+    width: 40%;
     margin-bottom: 20px;
     margin-right: 5px;
     display: inline-block;
@@ -45,7 +45,6 @@ td {
     border-style: solid;
     background-color: #ffff;
     cursor: pointer;
-    height: 23px;
 }
 #buscar {
     margin-bottom: 20px;
@@ -86,9 +85,3 @@ select {
     background-color: #ffff;
     cursor: pointer;
 }
-  
-  
-  
-  
-  
-  
